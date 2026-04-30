@@ -114,6 +114,7 @@ class _EgyptPageState extends State<EgyptPage> {
               ),
             ),
             Scrollbar(
+              controller: _scrollController,
               child: ListView(
                 controller: _scrollController,
                 cacheExtent: screenHeight * 1,

@@ -58,7 +58,8 @@ class _CubertoState extends State<Cuberto> {
               Align(
                 alignment: Alignment(0.5, 0),
                 child: IgnorePointer(
-                  child: SizedBox(
+                  child: Container(
+                    color: Colors.red,
                     width: MediaQuery.of(context).size.width / 3,
                     height: MediaQuery.of(context).size.height * 0.8,
                     child: Stack(

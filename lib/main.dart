@@ -4,7 +4,7 @@ import 'package:scroll_to_perfection/blocked_animation.dart';
 import 'package:scroll_to_perfection/cuberto.dart';
 import 'package:scroll_to_perfection/egipt/egypt.dart';
 import 'package:scroll_to_perfection/vgv.dart';
-import 'package:scroll_to_perfection/whatsapp_images.dart';
+import 'package:scroll_to_perfection/whatsapp_parallax.dart';
 import 'package:scroll_to_perfection/zoom_in.dart';
 import 'package:url_launcher/url_launcher.dart';
 
