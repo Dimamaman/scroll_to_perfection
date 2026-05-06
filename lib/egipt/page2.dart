@@ -42,7 +42,7 @@ class _Page2State extends State<Page2> with SingleTickerProviderStateMixin {
           Positioned(
             left: 0,
             right: 0,
-            bottom: height * 0.4,
+            bottom: height * 0.43,
             child: FittedBox(
               fit: BoxFit.fitWidth,
               child: AnimatedBuilder(

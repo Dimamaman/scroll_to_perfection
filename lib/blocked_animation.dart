@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -62,7 +64,7 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
   MyHeaderDelegate({required this.screenHeight});
 
   @override
-  double get maxExtent => 2 * screenHeight;
+  double get maxExtent => 3 * screenHeight;
 
   @override
   double get minExtent => screenHeight;
@@ -73,6 +75,15 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
     final screenWidth = MediaQuery.of(context).size.width;
     final percentageDone =
         (shrinkOffset / (maxExtent - minExtent)).clamp(0.0, 1.0);
+
+    /// percentageDone bu animatsiyaning necha foizi bajarilganini bildiradi va widgetlarni boshqaradi.
+    /// Ya’ni scroll qanchalik bajarilganini bitta 0..1 qiymatga aylantirib beradi.
+    /// Keyin shu qiymat bilan opacity, position, width, size, border kabi narsalarni boshqarasan.
+
+    /// shrinkOffset -> Header qancha scroll bo‘lib qisqarganini bildiradi.
+    /// SliverPersistentHeader scroll paytida qancha qisqarganini bildiradigan qiymat.
+
+    log("JJJJJJJJ ${shrinkOffset} ~~ $percentageDone || $maxExtent ~~~ $minExtent");
 
     return Container(
       height: double.infinity,

@@ -28,6 +28,9 @@ class _ZoomInState extends State<ZoomIn> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((e) {
+      // log("RRRRRRRRR ${pageController.page} ~~~ $pageOffset");
+    });
     return Scaffold(
       appBar: AppBar(
         title: Text('Zoom in'),
@@ -56,7 +59,7 @@ class _ZoomInState extends State<ZoomIn> {
           ),
           NotificationListener<ScrollNotification>(
             onNotification: (not) {
-              print(not);
+              // print("JJJJJJJJJJJJ $not");
               return true;
             },
             child: PageView(
@@ -205,6 +208,7 @@ class InvertedCircleClipper extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
+    // log("TTTTTT ${percentage}");
     return Path()
       ..addRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height))
       ..addOval(

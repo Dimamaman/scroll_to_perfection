@@ -61,12 +61,14 @@ class _EgyptPageState extends State<EgyptPage> {
                 ),
               ),
             ),
+
             Positioned(
               top: 0.2 * screenHeight,
               left: 0,
               right: 0,
               child: MainText(),
             ),
+
             Positioned(
               top: screenHeight * 0.55 - 0.65 * offset,
               right: 0,
@@ -80,7 +82,9 @@ class _EgyptPageState extends State<EgyptPage> {
                 ),
               ),
             ),
-            Header(),
+
+            // Header(),
+
             Positioned(
               top: screenHeight * 0.8 - 1 * offset,
               left: 0,
@@ -93,6 +97,7 @@ class _EgyptPageState extends State<EgyptPage> {
                 ),
               ),
             ),
+
             Positioned(
               top: screenHeight * 0.8 - 1 * offset,
               left: 0,

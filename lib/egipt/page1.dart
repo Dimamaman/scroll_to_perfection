@@ -15,7 +15,7 @@ class _Page1State extends State<Page1> with SingleTickerProviderStateMixin {
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: Duration(milliseconds: 1400),
     )..addListener(() => setState(() {}));
     _animation = CurvedAnimation(
       curve: Curves.easeOutCubic,
@@ -38,7 +38,7 @@ class _Page1State extends State<Page1> with SingleTickerProviderStateMixin {
       child: AnimatedBuilder(
         animation: _animation,
         builder: (context, child) => Transform.translate(
-          offset: Offset(0, (1 - _animation.value) * height * 0.25),
+          offset: Offset(0, (1 - _animation.value) * height * 0.45),
           child: child,
         ),
         child: Column(
