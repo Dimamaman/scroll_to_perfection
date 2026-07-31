@@ -101,31 +101,31 @@ class _SectionBoxState extends State<SectionBox>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: widget.scrollController,
-      builder: (BuildContext context, Widget? child) {
-        if (!_hasStarted) {
-          final renderObject = context.findRenderObject() as RenderBox?;
-          final offsetY = renderObject?.localToGlobal(Offset.zero).dy ?? 0;
-          final screenHeight = MediaQuery.of(context).size.height;
-          if (renderObject != null && offsetY < screenHeight * 0.85) {
-            _hasStarted = true;
-            _controller.forward();
+    return Container(
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height,
+      color: widget.section.color,
+      padding: const EdgeInsets.all(32),
+      alignment: Alignment.bottomLeft,
+      child: AnimatedBuilder(
+        animation: widget.scrollController,
+        builder: (BuildContext context, Widget? child) {
+          if (!_hasStarted) {
+            final renderObject = context.findRenderObject() as RenderBox?;
+            final offsetY = renderObject?.localToGlobal(Offset.zero).dy ?? 0;
+            final screenHeight = MediaQuery.of(context).size.height;
+            if (renderObject != null && offsetY < screenHeight * 0.85) {
+              _hasStarted = true;
+              _controller.forward();
+            }
           }
-        }
 
-        return Container(
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height,
-          color: widget.section.color,
-          padding: const EdgeInsets.all(32),
-          alignment: Alignment.bottomLeft,
-          child: AnimatedBuilder(
+          return AnimatedBuilder(
             animation: _animation,
             builder: (BuildContext context, Widget? child) => Opacity(
               opacity: _animation.value.clamp(0.0, 1.0),
               child: Transform.translate(
-                offset: Offset(0, (1 - _animation.value) * 120),
+                offset: Offset(0, (1 - _animation.value) * 50),
                 child: child,
               ),
             ),
@@ -143,9 +143,9 @@ class _SectionBoxState extends State<SectionBox>
                 )
               ],
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
