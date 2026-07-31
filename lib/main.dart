@@ -3,7 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:scroll_to_perfection/blocked_animation.dart';
 import 'package:scroll_to_perfection/cuberto.dart';
 import 'package:scroll_to_perfection/egipt/egypt.dart';
+import 'package:scroll_to_perfection/examples.dart';
 import 'package:scroll_to_perfection/scroll_reveal_example.dart';
+import 'package:scroll_to_perfection/timer_animation.dart';
 import 'package:scroll_to_perfection/vgv.dart';
 import 'package:scroll_to_perfection/whatsapp_parallax.dart';
 import 'package:scroll_to_perfection/zoom_in.dart';
@@ -26,6 +28,8 @@ class MyApp extends StatelessWidget {
         '/zoom_in': (_) => ZoomIn(),
         '/cuberto': (_) => Cuberto(),
         '/scroll_reveal': (_) => ScrollRevealExample(),
+        '/timer': (_) => TimerAnimation(),
+        '/scroll': (_) => MyScroll()
       },
     );
   }
@@ -75,6 +79,14 @@ class HomePage extends StatelessWidget {
           DemoOptionButton(
             name: 'Scroll Reveal (mashq)',
             path: '/scroll_reveal',
+          ),
+          DemoOptionButton(
+            name: 'Timer Animation',
+            path: '/timer',
+          ),
+          DemoOptionButton(
+            name: 'My Scroll (mashq)',
+            path: '/scroll',
           ),
         ],
       ),
