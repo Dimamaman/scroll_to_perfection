@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:scroll_to_perfection/egipt/main_text.dart';
-import 'package:scroll_to_perfection/egipt/page2.dart';
-import 'package:scroll_to_perfection/egipt/page3.dart';
 
 import 'page1.dart';
 
@@ -62,83 +59,86 @@ class _EgyptPageState extends State<EgyptPage> {
               ),
             ),
 
-            Positioned(
-              top: 0.2 * screenHeight,
-              left: 0,
-              right: 0,
-              child: MainText(),
-            ),
+            // Positioned(
+            //   top: 0.2 * screenHeight,
+            //   left: 0,
+            //   right: 0,
+            //   child: MainText(),
+            // ),
 
-            Positioned(
-              top: screenHeight * 0.55 - 0.65 * offset,
-              right: 0,
-              left: 0,
-              height: screenHeight * 0.4,
-              child: RepaintBoundary(
-                child: Image.asset(
-                  'images/pyramid.png',
-                  fit: BoxFit.cover,
-                  alignment: Alignment(0, -0.2),
-                ),
-              ),
-            ),
+            // Positioned(
+            //   top: screenHeight * 0.55 - 0.65 * offset,
+            //   right: 0,
+            //   left: 0,
+            //   height: screenHeight * 0.4,
+            //   child: RepaintBoundary(
+            //     child: Image.asset(
+            //       'images/pyramid.png',
+            //       fit: BoxFit.cover,
+            //       alignment: Alignment(0, -0.2),
+            //     ),
+            //   ),
+            // ),
 
             // Header(),
 
-            Positioned(
-              top: screenHeight * 0.8 - 1 * offset,
-              left: 0,
-              right: 0,
-              height: screenHeight / 3,
-              child: RepaintBoundary(
-                child: Image.asset(
-                  'images/sand.png',
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
+            // Positioned(
+            //   top: screenHeight * 0.8 - 1 * offset,
+            //   left: 0,
+            //   right: 0,
+            //   height: screenHeight / 3,
+            //   child: RepaintBoundary(
+            //     child: Image.asset(
+            //       'images/sand.png',
+            //       fit: BoxFit.fill,
+            //     ),
+            //   ),
+            // ),
 
-            Positioned(
-              top: screenHeight * 0.8 - 1 * offset,
-              left: 0,
-              right: 0,
-              height: screenHeight * 0.3,
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: [0, 1],
-                    colors: [
-                      backgroundColor.withValues(alpha: 0),
-                      backgroundColor,
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            // Positioned(
+            //   top: screenHeight * 0.8 - 1 * offset,
+            //   left: 0,
+            //   right: 0,
+            //   height: screenHeight * 0.3,
+            //   child: Container(
+            //     width: double.infinity,
+            //     decoration: BoxDecoration(
+            //       gradient: LinearGradient(
+            //         begin: Alignment.topCenter,
+            //         end: Alignment.bottomCenter,
+            //         stops: [0, 1],
+            //         colors: [
+            //           backgroundColor.withValues(alpha: 0),
+            //           backgroundColor,
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Scrollbar(
               controller: _scrollController,
               child: ListView(
                 controller: _scrollController,
                 cacheExtent: screenHeight * 1,
                 children: <Widget>[
-                  Container(height: screenHeight),
                   Container(
-                    height: 100,
-                    color: backgroundColor,
+                    height: screenHeight,
+                    color: Colors.red.withOpacity(0.5),
                   ),
                   Container(
-                    color: backgroundColor,
+                    height: 100,
+                    color: backgroundColor.withOpacity(0.4),
+                  ),
+                  Container(
+                    color: backgroundColor.withOpacity(0.8),
                     child: Page1(),
                   ),
-                  Page2(),
-                  Page3(),
-                  Container(
-                    height: 100,
-                    color: darkerColor,
-                  ),
+                  // Page2(),
+                  // Page3(),
+                  // Container(
+                  //   height: 100,
+                  //   color: darkerColor,
+                  // ),
                 ],
               ),
             ),

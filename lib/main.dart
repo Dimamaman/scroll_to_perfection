@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:scroll_to_perfection/blocked_animation.dart';
 import 'package:scroll_to_perfection/cuberto.dart';
 import 'package:scroll_to_perfection/egipt/egypt.dart';
+import 'package:scroll_to_perfection/scroll_reveal_example.dart';
 import 'package:scroll_to_perfection/vgv.dart';
 import 'package:scroll_to_perfection/whatsapp_parallax.dart';
 import 'package:scroll_to_perfection/zoom_in.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         '/blockedAnimation': (_) => BlockedAnimation(),
         '/zoom_in': (_) => ZoomIn(),
         '/cuberto': (_) => Cuberto(),
+        '/scroll_reveal': (_) => ScrollRevealExample(),
       },
     );
   }
@@ -69,6 +71,10 @@ class HomePage extends StatelessWidget {
           DemoOptionButton(
             name: 'Cuberto',
             path: '/cuberto',
+          ),
+          DemoOptionButton(
+            name: 'Scroll Reveal (mashq)',
+            path: '/scroll_reveal',
           ),
         ],
       ),

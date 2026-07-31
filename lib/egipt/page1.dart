@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:scroll_to_perfection/egipt/egypt.dart';
 
@@ -33,6 +35,9 @@ class _Page1State extends State<Page1> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
+    log("JJJJJJJJJJ ${_animation.value}");
+
     return FractionallySizedBox(
       widthFactor: 0.7,
       child: AnimatedBuilder(
