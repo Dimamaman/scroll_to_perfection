@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class MyScroll extends StatefulWidget {
@@ -79,7 +81,6 @@ class SectionBox extends StatefulWidget {
 class _SectionBoxState extends State<SectionBox>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
-  late final Animation<double> _animation;
   bool _hasStarted = false;
 
   @override
@@ -87,10 +88,8 @@ class _SectionBoxState extends State<SectionBox>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1200),
+      duration: const Duration(milliseconds: 2000),
     );
-    _animation =
-        CurvedAnimation(parent: _controller, curve: Curves.easeOutBack);
   }
 
   @override
@@ -121,30 +120,35 @@ class _SectionBoxState extends State<SectionBox>
           }
 
           return AnimatedBuilder(
-            animation: _animation,
-            builder: (BuildContext context, Widget? child) => Opacity(
-              opacity: _animation.value.clamp(0.0, 1.0),
-              child: Transform.translate(
-                offset: Offset(0, (1 - _animation.value) * 50),
+            animation: _controller,
+            builder: (BuildContext context, Widget? child) {
+              // sin(pi * value): 0 → 1 → 0
+              // Boshida 0 (joyida), o'rtada 1 (tepada), oxirida 0 (joyiga qaytdi)
+              final progress = sin(pi * _controller.value);
+              final screenHeight = MediaQuery.of(context).size.height;
+              print("JJJJJJJJ ${-progress * screenHeight * 0.7}");
+              return Transform.translate(
+                offset: Offset(0, -progress * screenHeight * 0.7),
                 child: child,
-              ),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.section.title,
-                  style: TextStyle(color: Colors.white, fontSize: 25),
-                ),
-                Text(
-                  widget.section.text,
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                )
-              ],
-            ),
+              );
+            },
+            child: child,
           );
         },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.section.title,
+              style: TextStyle(color: Colors.white, fontSize: 25),
+            ),
+            Text(
+              widget.section.text,
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            )
+          ],
+        ),
       ),
     );
   }

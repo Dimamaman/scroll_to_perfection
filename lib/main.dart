@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:scroll_to_perfection/blocked_animation.dart';
 import 'package:scroll_to_perfection/cuberto.dart';
 import 'package:scroll_to_perfection/egipt/egypt.dart';
+import 'package:scroll_to_perfection/emoji_burst_animation.dart';
 import 'package:scroll_to_perfection/examples.dart';
 import 'package:scroll_to_perfection/scroll_reveal_example.dart';
 import 'package:scroll_to_perfection/timer_animation.dart';
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
         '/cuberto': (_) => Cuberto(),
         '/scroll_reveal': (_) => ScrollRevealExample(),
         '/timer': (_) => TimerAnimation(),
-        '/scroll': (_) => MyScroll()
+        '/scroll': (_) => MyScroll(),
+        '/emoji_burst': (_) => EmojiBurstAnimation()
       },
     );
   }
@@ -87,6 +89,10 @@ class HomePage extends StatelessWidget {
           DemoOptionButton(
             name: 'My Scroll (mashq)',
             path: '/scroll',
+          ),
+          DemoOptionButton(
+            name: 'Emoji Burst (2GIS uslubida)',
+            path: '/emoji_burst',
           ),
         ],
       ),
