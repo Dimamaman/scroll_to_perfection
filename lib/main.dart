@@ -10,6 +10,7 @@ import 'package:scroll_to_perfection/timer_animation.dart';
 import 'package:scroll_to_perfection/vgv.dart';
 import 'package:scroll_to_perfection/whatsapp_parallax.dart';
 import 'package:scroll_to_perfection/zoom_in.dart';
+import 'package:scroll_to_perfection/exercises/ex1_fade.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
         '/scroll_reveal': (_) => ScrollRevealExample(),
         '/timer': (_) => TimerAnimation(),
         '/scroll': (_) => MyScroll(),
-        '/emoji_burst': (_) => EmojiBurstAnimation()
+        '/emoji_burst': (_) => EmojiBurstAnimation(),
+        '/ex1_fade': (_) => Ex1Fade()
       },
     );
   }
@@ -93,6 +95,18 @@ class HomePage extends StatelessWidget {
           DemoOptionButton(
             name: 'Emoji Burst (2GIS uslubida)',
             path: '/emoji_burst',
+          ),
+          const Divider(),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Text(
+              'Mashqlar',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+          DemoOptionButton(
+            name: 'Mashq 1: Fade In/Out',
+            path: '/ex1_fade',
           ),
         ],
       ),
