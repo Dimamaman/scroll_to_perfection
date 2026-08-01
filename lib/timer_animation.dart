@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class TimerAnimation extends StatefulWidget {
@@ -223,7 +224,8 @@ class _TimerPainter extends CustomPainter {
     )..layout();
     textPainter.paint(
       canvas,
-      Offset(center.dx - textPainter.width / 2, center.dy - textPainter.height / 2),
+      Offset(center.dx - textPainter.width / 2,
+          center.dy - textPainter.height / 2),
     );
   }
 
