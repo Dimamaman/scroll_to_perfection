@@ -5,12 +5,25 @@ import 'package:scroll_to_perfection/cuberto.dart';
 import 'package:scroll_to_perfection/egipt/egypt.dart';
 import 'package:scroll_to_perfection/emoji_burst_animation.dart';
 import 'package:scroll_to_perfection/examples.dart';
+import 'package:scroll_to_perfection/exercises/ex1_fade.dart';
+import 'package:scroll_to_perfection/exercises/ex2_scale.dart';
+import 'package:scroll_to_perfection/exercises/ex3_slide.dart';
+import 'package:scroll_to_perfection/exercises/ex4_rotation.dart';
+import 'package:scroll_to_perfection/exercises/ex5_animated_container.dart';
+import 'package:scroll_to_perfection/exercises/ex6_opacity_align.dart';
+import 'package:scroll_to_perfection/exercises/ex7_animated_switcher.dart';
+import 'package:scroll_to_perfection/exercises/ex8_staggered.dart';
+import 'package:scroll_to_perfection/exercises/ex9_tween_sequence.dart';
+import 'package:scroll_to_perfection/exercises/ex15_wave.dart';
+import 'package:scroll_to_perfection/exercises/ex17_spring.dart';
+import 'package:scroll_to_perfection/exercises/ex18_draggable.dart';
+import 'package:scroll_to_perfection/exercises/ex19_particles.dart';
+import 'package:scroll_to_perfection/exercises/ex20_final.dart';
 import 'package:scroll_to_perfection/scroll_reveal_example.dart';
 import 'package:scroll_to_perfection/timer_animation.dart';
 import 'package:scroll_to_perfection/vgv.dart';
 import 'package:scroll_to_perfection/whatsapp_parallax.dart';
 import 'package:scroll_to_perfection/zoom_in.dart';
-import 'package:scroll_to_perfection/exercises/ex1_fade.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {
@@ -33,7 +46,20 @@ class MyApp extends StatelessWidget {
         '/timer': (_) => TimerAnimation(),
         '/scroll': (_) => MyScroll(),
         '/emoji_burst': (_) => EmojiBurstAnimation(),
-        '/ex1_fade': (_) => Ex1Fade()
+        '/ex1_fade': (_) => FadeAnimationExample(),
+        '/ex2_scale': (_) => Ex2Scale(),
+        '/ex3_slide': (_) => Ex3Slide(),
+        '/ex4_rotation': (_) => Ex4Rotation(),
+        '/ex5_animated_container': (_) => Ex5AnimatedContainer(),
+        '/ex6_opacity_align': (_) => Ex6OpacityAlign(),
+        '/ex7_switcher': (_) => Ex7AnimatedSwitcher(),
+        '/ex8_staggered': (_) => Ex8Staggered(),
+        '/ex9_tween_sequence': (_) => Ex9TweenSequence(),
+        '/ex15_wave': (_) => Ex15Wave(),
+        '/ex17_spring': (_) => Ex17Spring(),
+        '/ex18_draggable': (_) => Ex18Draggable(),
+        '/ex19_particles': (_) => Ex19Particles(),
+        '/ex20_final': (_) => Ex20Final()
       },
     );
   }
@@ -107,6 +133,58 @@ class HomePage extends StatelessWidget {
           DemoOptionButton(
             name: 'Mashq 1: Fade In/Out',
             path: '/ex1_fade',
+          ),
+          DemoOptionButton(
+            name: 'Mashq 2: Scale',
+            path: '/ex2_scale',
+          ),
+          DemoOptionButton(
+            name: 'Mashq 3: Slide',
+            path: '/ex3_slide',
+          ),
+          DemoOptionButton(
+            name: 'Mashq 4: Rotation',
+            path: '/ex4_rotation',
+          ),
+          DemoOptionButton(
+            name: 'Mashq 5: AnimatedContainer',
+            path: '/ex5_animated_container',
+          ),
+          DemoOptionButton(
+            name: 'Mashq 6: Opacity + Align',
+            path: '/ex6_opacity_align',
+          ),
+          DemoOptionButton(
+            name: 'Mashq 7: AnimatedSwitcher',
+            path: '/ex7_switcher',
+          ),
+          DemoOptionButton(
+            name: 'Mashq 8: Staggered',
+            path: '/ex8_staggered',
+          ),
+          DemoOptionButton(
+            name: 'Mashq 9: TweenSequence',
+            path: '/ex9_tween_sequence',
+          ),
+          DemoOptionButton(
+            name: 'Mashq 15: Wave',
+            path: '/ex15_wave',
+          ),
+          DemoOptionButton(
+            name: 'Mashq 17: Spring',
+            path: '/ex17_spring',
+          ),
+          DemoOptionButton(
+            name: 'Mashq 18: Drag + Snap',
+            path: '/ex18_draggable',
+          ),
+          DemoOptionButton(
+            name: 'Mashq 19: Particles',
+            path: '/ex19_particles',
+          ),
+          DemoOptionButton(
+            name: 'Mashq 20: Final (barcha bilimlar)',
+            path: '/ex20_final',
           ),
         ],
       ),

@@ -1,80 +1,77 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Ex1Fade extends StatefulWidget {
+class FadeAnimationExample extends StatefulWidget {
   @override
-  State<Ex1Fade> createState() => _Ex1FadeState();
+  State<FadeAnimationExample> createState() => _FadeAnimationExampleState();
 }
 
-class _Ex1FadeState extends State<Ex1Fade> with SingleTickerProviderStateMixin {
-  // 1. AnimationController — 500ms da 0 dan 1 gacha sanaydigan stopwatch
-  late final AnimationController _controller;
-
-  // Widget hozir ko'rinyaptimi yoki yo'qmi — tugma bosilganda almashadi
-  bool _isVisible = false;
+class _FadeAnimationExampleState extends State<FadeAnimationExample>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController animationController;
+  bool isVisible = true;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
+    animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1500),
+      duration: Duration(milliseconds: 1200),
+      value: 1,
     );
+
+    animationController.addListener(() {
+      log("FRAME: ${animationController.value}");
+    });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    animationController.dispose();
     super.dispose();
   }
 
-  void _toggle() {
+  void toggle() {
     setState(() {
-      _isVisible = !_isVisible;
+      isVisible = !isVisible;
     });
-    // true bo'lsa: 0 → 1 (paydo bo'ladi), false bo'lsa: 1 → 0 (yo'qoladi)
-    if (_isVisible) {
-      _controller.forward();
+
+    if (isVisible) {
+      animationController.forward();
     } else {
-      _controller.reverse();
+      animationController.reverse();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Mashq 1: Fade In/Out')),
+      appBar: AppBar(
+        title: Text("Fade In/Out"),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // 2. FadeTransition — controller qiymatini opacity ga aylantiradi
-            //    controller.value = 0 bo'lsa → opacity: 0 (ko'rinmaydi)
-            //    controller.value = 1 bo'lsa → opacity: 1 (to'liq ko'rinadi)
             FadeTransition(
-              opacity: _controller,
+              opacity: animationController,
               child: Container(
-                width: 200,
                 height: 200,
-                decoration: BoxDecoration(
-                  color: Colors.indigo,
-                  borderRadius: BorderRadius.circular(20),
-                ),
+                width: 200,
+                color: Colors.blueAccent,
                 alignment: Alignment.center,
-                child: const Text(
-                  'Salom!',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
+                child: Text(
+                  "Hello",
+                  style: TextStyle(fontSize: 30, color: Colors.white),
                 ),
               ),
             ),
-            const SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: _toggle,
-              child: Text(_isVisible ? 'Yashir' : 'Ko\'rsat'),
+            SizedBox(
+              height: 50,
             ),
+            CupertinoButton(child: Text("Press"), onPressed: toggle)
           ],
         ),
       ),
