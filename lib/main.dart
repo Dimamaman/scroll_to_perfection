@@ -19,6 +19,7 @@ import 'package:scroll_to_perfection/exercises/ex17_spring.dart';
 import 'package:scroll_to_perfection/exercises/ex18_draggable.dart';
 import 'package:scroll_to_perfection/exercises/ex19_particles.dart';
 import 'package:scroll_to_perfection/exercises/ex20_final.dart';
+import 'package:scroll_to_perfection/widgets/friend_sheet.dart';
 import 'package:scroll_to_perfection/scroll_reveal_example.dart';
 import 'package:scroll_to_perfection/timer_animation.dart';
 import 'package:scroll_to_perfection/vgv.dart';
@@ -59,7 +60,8 @@ class MyApp extends StatelessWidget {
         '/ex17_spring': (_) => Ex17Spring(),
         '/ex18_draggable': (_) => Ex18Draggable(),
         '/ex19_particles': (_) => Ex19Particles(),
-        '/ex20_final': (_) => Ex20Final()
+        '/ex20_final': (_) => Ex20Final(),
+        '/friend_sheet': (_) => FriendSheetDemo()
       },
     );
   }
@@ -185,6 +187,18 @@ class HomePage extends StatelessWidget {
           DemoOptionButton(
             name: 'Mashq 20: Final (barcha bilimlar)',
             path: '/ex20_final',
+          ),
+          const Divider(),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Text(
+              '2GIS Morph',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+          DemoOptionButton(
+            name: 'Friend Sheet (Bottom Sheet Morph)',
+            path: '/friend_sheet',
           ),
         ],
       ),
