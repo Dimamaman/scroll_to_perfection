@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
 
 class CollapsingCardStack extends StatefulWidget {
   @override
@@ -15,7 +16,8 @@ class _CollapsingCardStackState extends State<CollapsingCardStack> {
 
   static final _cards = <_CardData>[
     _CardData('Calories eaten', '568', Color(0xFFFF9500), Icons.restaurant),
-    _CardData('Calories to burn', '200', Color(0xFFFF3B30), Icons.local_fire_department),
+    _CardData('Calories to burn', '200', Color(0xFFFF3B30),
+        Icons.local_fire_department),
     _CardData('Meal plan', '5 meals', Color(0xFF34C759), Icons.lunch_dining),
     _CardData('Water intake', '1.5 L', Color(0xFF007AFF), Icons.water_drop),
     _CardData('Sleep', '7h 30m', Color(0xFF5856D6), Icons.bedtime),
@@ -33,7 +35,8 @@ class _CollapsingCardStackState extends State<CollapsingCardStack> {
     super.dispose();
   }
 
-  double get _offset => _scrollController.hasClients ? _scrollController.offset : 0.0;
+  double get _offset =>
+      _scrollController.hasClients ? _scrollController.offset : 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +62,7 @@ class _CollapsingCardStackState extends State<CollapsingCardStack> {
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: [
-                        for (int i = _cards.length - 1; i >= 0; i--)
+                        for (int i = 0; i < _cards.length; i++)
                           _buildCard(i, viewH),
                       ],
                     ),
@@ -85,16 +88,22 @@ class _CollapsingCardStackState extends State<CollapsingCardStack> {
       progress = (1.0 - nextY / _cardSpacing).clamp(0.0, 1.0);
     }
 
-    // Faza 1 (progress 0..0.8): karta YIQILADI — balandlik kamayadi
+    // Faza 1 (progress 0..0.8): karta YIG'ILADI — balandlik kamayadi
     // Faza 2 (progress 0.8..1.0): yig'ilgan karta OPACITY bilan yo'qoladi
     final shrinkT = (progress / 0.8).clamp(0.0, 1.0);
     final fadeT = ((progress - 0.8) / 0.2).clamp(0.0, 1.0);
 
     final currentH = _cardHeight - shrinkT * (_cardHeight - _minHeight);
+    // Opacity faqat TAGDAGI kartaga — ustiga chiqqan karta har doim 1.0
     final opacity = 1.0 - fadeT;
     final contentShift = shrinkT * (_cardHeight - _minHeight);
 
     if (y > viewH || opacity <= 0.0) return const SizedBox.shrink();
+
+    // Ustiga chiqqan karta orqasi ko'rinmasligi uchun — pinlanmagan karta doim opacity 1.0
+    // Faqat pinlanib yig'ilgan karta (progress > 0) fade bo'ladi
+    final isBeingCovered = progress > 0.0;
+    final displayOpacity = isBeingCovered ? opacity : 1.0;
 
     return Positioned(
       top: y,
@@ -102,7 +111,7 @@ class _CollapsingCardStackState extends State<CollapsingCardStack> {
       right: 16,
       height: currentH,
       child: Opacity(
-        opacity: opacity,
+        opacity: displayOpacity,
         child: Container(
           decoration: BoxDecoration(
             color: const Color(0xFF2C2C2E),
@@ -146,7 +155,8 @@ class _CollapsingCardStackState extends State<CollapsingCardStack> {
                           color: _cards[i].color.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Icon(_cards[i].icon, color: _cards[i].color, size: 18),
+                        child: Icon(_cards[i].icon,
+                            color: _cards[i].color, size: 18),
                       ),
                       const SizedBox(width: 10),
                       Text(
