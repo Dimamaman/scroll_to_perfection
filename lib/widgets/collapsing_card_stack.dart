@@ -121,25 +121,22 @@ class _CollapsingCardStackState extends State<CollapsingCardStack> {
     final natY = _naturalY(i) - _offset;
     final y = math.max(0.0, natY);
 
-    double progress = 0.0;
+    // Keyingi karta bu kartaga qancha joy qoldirgan
+    double space = itemH;
     if (i < _items.length - 1) {
-      final nextNatY = _naturalY(i + 1) - _offset;
-      final nextY = math.max(0.0, nextNatY);
-      final dist = _items[i].height + _cardSpacing;
-      progress = (1.0 - nextY / dist).clamp(0.0, 1.0);
+      final nextY = math.max(0.0, _naturalY(i + 1) - _offset);
+      space = nextY - y - _cardSpacing;
     }
 
-    final shrinkT = (progress / 0.8).clamp(0.0, 1.0);
-    final fadeT = ((progress - 0.8) / 0.2).clamp(0.0, 1.0);
+    // Karta shu joyga siqiladi, lekin minHeight dan kichik bo'lmaydi
+    final currentH = space.clamp(_minHeight, itemH);
+    final contentShift = itemH - currentH;
 
-    final currentH = itemH - shrinkT * (itemH - _minHeight);
-    final opacity = 1.0 - fadeT;
-    final contentShift = shrinkT * (itemH - _minHeight);
+    // minHeight dan ham kichik joy qolsa — opacity bilan yo'qoladi
+    final displayOpacity =
+        space < _minHeight ? (space / _minHeight).clamp(0.0, 1.0) : 1.0;
 
-    if (y > viewH || opacity <= 0.0) return const SizedBox.shrink();
-
-    final isBeingCovered = progress > 0.0;
-    final displayOpacity = isBeingCovered ? opacity : 1.0;
+    if (y > viewH || displayOpacity <= 0.0) return const SizedBox.shrink();
 
     final item = _items[i];
 
