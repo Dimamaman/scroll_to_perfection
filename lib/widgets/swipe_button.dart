@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
 
 /// Surib tasdiqlash tugmasi (slide to confirm).
 ///
@@ -36,16 +37,25 @@ class _SwipeButtonState extends State<SwipeButton>
   late final AnimationController _controller;
   bool _confirmed = false;
 
-  /// 0.0 = boshida, 1.0 = oxirida
+  /// Prujina tavsifi: qattiqlik (stiffness) va so'nish (damping).
+  /// damping past bo'lsa — ko'proq tebranadi.
+  static const _spring = SpringDescription(
+    mass: 1,
+    stiffness: 500,
+    damping: 20,
+  );
+
+  /// 0.0 = boshida, 1.0 = oxirida.
+  /// unbounded controller bo'lgani uchun bu qiymat 0 dan past yoki
+  /// 1 dan yuqori chiqishi mumkin — prujina "otib ketishi" (overshoot) shundan.
   double get _progress => _controller.value;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    )..addListener(() => setState(() {}));
+    // unbounded: 0..1 chegarasidan chiqa oladi → prujina tebranishi ko'rinadi
+    _controller = AnimationController.unbounded(vsync: this)
+      ..addListener(() => setState(() {}));
   }
 
   @override
@@ -54,32 +64,49 @@ class _SwipeButtonState extends State<SwipeButton>
     super.dispose();
   }
 
-  void _onDragUpdate(DragUpdateDetails d, double maxDrag) {
-    if (_confirmed) return;
-    // delta ni 0..1 oralig'iga o'girish
-    _controller.value += d.delta.dx / maxDrag;
+  void _onDragStart(DragStartDetails d) {
+    // Uchayotgan prujinani to'xtatib, barmoqqa nazorat berish
+    _controller.stop();
   }
 
-  void _onDragEnd(DragEndDetails d) {
+  void _onDragUpdate(DragUpdateDetails d, double maxDrag) {
+    if (_confirmed) return;
+    // Barmoq bilan surganda chegaradan chiqmaydi
+    _controller.value =
+        (_controller.value + d.delta.dx / maxDrag).clamp(0.0, 1.0);
+  }
+
+  void _onDragEnd(DragEndDetails d, double maxDrag) {
     if (_confirmed) return;
 
+    // Piksel/sekund → progress/sekund
+    final velocity = d.velocity.pixelsPerSecond.dx / maxDrag;
+
     if (_progress >= widget.threshold) {
-      // Oxirigacha yetdi — tasdiqlash
-      _controller.animateTo(1.0, curve: Curves.easeOut).then((_) {
+      // Oxirigacha yetdi — 1.0 ga prujina bilan borib tasdiqlanadi
+      _springTo(1.0, velocity).then((_) {
         if (!mounted) return;
         setState(() => _confirmed = true);
         widget.onConfirmed();
       });
     } else {
-      // Yetmadi — orqaga qaytish
-      _controller.animateTo(0.0, curve: Curves.easeOutBack);
+      // Yetmadi — prujinaday orqaga otiladi
+      _springTo(0.0, velocity);
     }
+  }
+
+  /// Hozirgi pozitsiyadan [target] ga prujina simulyatsiyasi bilan borish.
+  /// [velocity] — qo'yib yuborilgandagi tezlik (progress birligida).
+  TickerFuture _springTo(double target, double velocity) {
+    return _controller.animateWith(
+      SpringSimulation(_spring, _progress, target, velocity),
+    );
   }
 
   /// Tashqaridan boshlang'ich holatga qaytarish
   void reset() {
     setState(() => _confirmed = false);
-    _controller.animateTo(0.0, curve: Curves.easeOut);
+    _springTo(0.0, 0.0);
   }
 
   @override
@@ -90,7 +117,14 @@ class _SwipeButtonState extends State<SwipeButton>
         final thumbSize = _height - _padding * 2;
         final maxDrag = trackW - thumbSize - _padding * 2;
 
-        log("FFFFFFFF ${_padding + maxDrag * _progress}");
+        // Prujina 0..1 dan chiqib ketishi mumkin. Thumb yo'lakdan
+        // tashqariga chiqmasligi uchun overshoot'ni padding hajmida cheklaymiz.
+        final overshoot = _padding / maxDrag;
+        final t = _progress.clamp(-overshoot, 1.0 + overshoot);
+        // Fon va matnlar uchun toza 0..1
+        final tSafe = _progress.clamp(0.0, 1.0);
+
+        log("FFFFFFFF ${_padding + maxDrag * t}");
 
         return SizedBox(
           height: _height,
@@ -110,7 +144,7 @@ class _SwipeButtonState extends State<SwipeButton>
                       alignment: Alignment.centerLeft,
                       child: FractionallySizedBox(
                         widthFactor:
-                            (thumbSize + _padding * 2 + maxDrag * _progress) /
+                            (thumbSize + _padding * 2 + maxDrag * tSafe) /
                                 trackW,
                         child: Container(
                           decoration: BoxDecoration(
@@ -126,7 +160,7 @@ class _SwipeButtonState extends State<SwipeButton>
                     // Matn — surilgan sari so'nadi
                     Center(
                       child: Opacity(
-                        opacity: (1.0 - _progress * 1.6).clamp(0.0, 1.0),
+                        opacity: (1.0 - tSafe * 1.6).clamp(0.0, 1.0),
                         child: Padding(
                           padding: EdgeInsets.only(left: thumbSize),
                           child: Text(
@@ -144,7 +178,7 @@ class _SwipeButtonState extends State<SwipeButton>
                     // Tasdiqlangan matn — oxirida paydo bo'ladi
                     Center(
                       child: Opacity(
-                        opacity: ((_progress - 0.6) / 0.4).clamp(0.0, 1.0),
+                        opacity: ((tSafe - 0.6) / 0.4).clamp(0.0, 1.0),
                         child: Text(
                           widget.confirmedLabel,
                           style: const TextStyle(
@@ -162,11 +196,12 @@ class _SwipeButtonState extends State<SwipeButton>
 
               // ── Strelkali thumb
               Positioned(
-                left: _padding + maxDrag * _progress,
+                left: _padding + maxDrag * t,
                 top: _padding,
                 child: GestureDetector(
+                  onHorizontalDragStart: _onDragStart,
                   onHorizontalDragUpdate: (d) => _onDragUpdate(d, maxDrag),
-                  onHorizontalDragEnd: _onDragEnd,
+                  onHorizontalDragEnd: (d) => _onDragEnd(d, maxDrag),
                   child: Container(
                     width: thumbSize,
                     height: thumbSize,

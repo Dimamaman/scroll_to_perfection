@@ -22,6 +22,7 @@ import 'package:scroll_to_perfection/exercises/ex20_final.dart';
 import 'package:scroll_to_perfection/widgets/friend_sheet.dart';
 import 'package:scroll_to_perfection/widgets/collapsing_card_stack.dart';
 import 'package:scroll_to_perfection/widgets/swipe_button.dart';
+import 'package:scroll_to_perfection/widgets/pressable_button.dart';
 import 'package:scroll_to_perfection/scroll_reveal_example.dart';
 import 'package:scroll_to_perfection/timer_animation.dart';
 import 'package:scroll_to_perfection/vgv.dart';
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
         '/friend_sheet': (_) => FriendSheetDemo(),
         '/collapsing_cards': (_) => CollapsingCardStack(),
         '/swipe_button': (_) => SwipeButtonDemo(),
+        '/pressable_button': (_) => PressableButtonDemo(),
       },
     );
   }
@@ -211,6 +213,10 @@ class HomePage extends StatelessWidget {
           DemoOptionButton(
             name: 'Swipe Button (surib tasdiqlash)',
             path: '/swipe_button',
+          ),
+          DemoOptionButton(
+            name: 'Pressable Button (bosilish hissi)',
+            path: '/pressable_button',
           ),
         ],
       ),
