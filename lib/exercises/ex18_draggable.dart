@@ -230,6 +230,5 @@ class _LinePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_LinePainter old) =>
-      old.dx != dx || old.dy != dy;
+  bool shouldRepaint(_LinePainter old) => old.dx != dx || old.dy != dy;
 }

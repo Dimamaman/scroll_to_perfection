@@ -21,6 +21,7 @@ import 'package:scroll_to_perfection/exercises/ex19_particles.dart';
 import 'package:scroll_to_perfection/exercises/ex20_final.dart';
 import 'package:scroll_to_perfection/widgets/friend_sheet.dart';
 import 'package:scroll_to_perfection/widgets/collapsing_card_stack.dart';
+import 'package:scroll_to_perfection/widgets/swipe_button.dart';
 import 'package:scroll_to_perfection/scroll_reveal_example.dart';
 import 'package:scroll_to_perfection/timer_animation.dart';
 import 'package:scroll_to_perfection/vgv.dart';
@@ -63,7 +64,8 @@ class MyApp extends StatelessWidget {
         '/ex19_particles': (_) => Ex19Particles(),
         '/ex20_final': (_) => Ex20Final(),
         '/friend_sheet': (_) => FriendSheetDemo(),
-        '/collapsing_cards': (_) => CollapsingCardStack()
+        '/collapsing_cards': (_) => CollapsingCardStack(),
+        '/swipe_button': (_) => SwipeButtonDemo(),
       },
     );
   }
@@ -205,6 +207,10 @@ class HomePage extends StatelessWidget {
           DemoOptionButton(
             name: 'Collapsing Cards (Cal AI)',
             path: '/collapsing_cards',
+          ),
+          DemoOptionButton(
+            name: 'Swipe Button (surib tasdiqlash)',
+            path: '/swipe_button',
           ),
         ],
       ),
