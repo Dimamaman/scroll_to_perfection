@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -170,21 +171,77 @@ class GestureDetectorExample extends StatefulWidget {
   State<GestureDetectorExample> createState() => _GestureDetectorExampleState();
 }
 
-class _GestureDetectorExampleState extends State<GestureDetectorExample> {
+class _GestureDetectorExampleState extends State<GestureDetectorExample>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController animationController;
+  double _dx = 0;
+  double _dy = 0;
+
+  double _startDx = 0;
+  double _startDy = 0;
+
+  @override
+  void initState() {
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+
+    animationController.addListener(() {
+      setState(() {
+        // print("FFFF 22222 $_dx ~~ $_dy");
+        final t = animationController.value;
+        _dx = lerpDouble(_startDx, 0, t)!;
+        _dy = lerpDouble(_startDy, 0, t)!;
+        print("FFFF $_startDx || $_dx ~~ $_dy *** $t");
+
+        // _dx = lerpDouble(_startDx, 0, t)!;        // 1
+        // _dx = _startDx + (0 - _startDx) * t;      // 2 — formulaning o'zi
+        // _dx = _startDx * (1 - t);                 // 3 — soddalashtirilgan
+      });
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: GestureDetector(
-          onPanUpdate: (DragUpdateDetails details) {
-            print('FFFFF ${details.delta.dx}');
-          },
-          child: Container(
-            width: 200,
-            height: 200,
-            color: Colors.red,
-          ),
-        ),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          // print("FFFF 44444 $_dx ~~ $_dy");
+          return Center(
+            child: Transform.translate(
+              offset: Offset(_dx, _dy),
+              child: GestureDetector(
+                onPanUpdate: (DragUpdateDetails details) {
+                  setState(() {
+                    _dx += details.delta.dx;
+                    _dy += details.delta.dy;
+                  });
+                },
+                onPanEnd: (details) {
+                  print("MMMMMM $_dx");
+                  _startDx = _dx;
+                  _startDy = _dy;
+                  // print("FFFF 1111 $_dx ~~ $_dy");
+                  animationController.forward(from: 0);
+                },
+                child: Container(
+                  width: 200,
+                  height: 200,
+                  color: Colors.red,
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
