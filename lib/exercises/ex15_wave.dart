@@ -58,6 +58,7 @@ class _WaveDots extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("RRRRRRRR 15");
     return AnimatedBuilder(
       animation: controller,
       builder: (context, _) {
@@ -74,6 +75,8 @@ class _WaveDots extends StatelessWidget {
             // Rang ham to'lqinsimon o'zgaradi
             final t = (sin(2 * pi * controller.value + phase) + 1) / 2;
             final color = Color.lerp(Colors.indigo, Colors.teal, t)!;
+
+            print("RRRRRRRR $y ~~~ $t");
 
             return Container(
               margin: const EdgeInsets.symmetric(horizontal: 4),

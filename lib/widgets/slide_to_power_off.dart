@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter/services.dart';
@@ -70,6 +72,7 @@ class _SlideToPowerOffState extends State<SlideToPowerOff>
   void _onStart(DragStartDetails _) => _slide.stop();
 
   void _onUpdate(DragUpdateDetails d, double maxDrag) {
+    log("MMMMMMMMM ${d.delta.dx}");
     if (_done) return;
     _slide.value = (_slide.value + d.delta.dx / maxDrag).clamp(0.0, 1.0);
   }
@@ -79,7 +82,8 @@ class _SlideToPowerOffState extends State<SlideToPowerOff>
     final v = d.velocity.pixelsPerSecond.dx / maxDrag;
 
     if (_slide.value >= widget.threshold) {
-      _slide.animateWith(SpringSimulation(_spring, _slide.value, 1.0, v))
+      _slide
+          .animateWith(SpringSimulation(_spring, _slide.value, 1.0, v))
           .then((_) {
         if (!mounted) return;
         HapticFeedback.mediumImpact();
@@ -108,7 +112,7 @@ class _SlideToPowerOffState extends State<SlideToPowerOff>
         final maxDrag = trackW - thumbSize - _padding * 2;
 
         final t = _slide.value.clamp(0.0, 1.0);
-
+        // log("RRRRR ${_padding + maxDrag * t} ~~~ $t");
         return SizedBox(
           height: _height,
           child: Stack(

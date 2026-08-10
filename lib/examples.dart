@@ -162,3 +162,30 @@ class _Section {
   const _Section(
       {required this.color, required this.title, required this.text});
 }
+
+class GestureDetectorExample extends StatefulWidget {
+  const GestureDetectorExample({Key? key}) : super(key: key);
+
+  @override
+  State<GestureDetectorExample> createState() => _GestureDetectorExampleState();
+}
+
+class _GestureDetectorExampleState extends State<GestureDetectorExample> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: GestureDetector(
+          onPanUpdate: (DragUpdateDetails details) {
+            print('FFFFF ${details.delta.dx}');
+          },
+          child: Container(
+            width: 200,
+            height: 200,
+            color: Colors.red,
+          ),
+        ),
+      ),
+    );
+  }
+}

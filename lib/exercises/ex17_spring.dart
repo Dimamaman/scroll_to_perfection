@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 
@@ -8,11 +10,10 @@ class Ex17Spring extends StatefulWidget {
 
 class _Ex17SpringState extends State<Ex17Spring>
     with SingleTickerProviderStateMixin {
+  /// Yagona haqiqat manbai: -1 = chapda, 0 = markazda, 1 = o'ngda.
+  /// Alohida `_dragOffset` maydoni endi kerak emas —
+  /// pozitsiyani controllerning o'zi saqlaydi.
   late final AnimationController _controller;
-
-  // Kartochka hozirgi pozitsiyasi (0 = markazda, -1 = chapda, 1 = o'ngda)
-  double _dragOffset = 0;
-  double _startOffset = 0;
 
   // Spring parametrlari — slider bilan o'zgartiramiz
   double _stiffness = 200;
@@ -22,11 +23,9 @@ class _Ex17SpringState extends State<Ex17Spring>
   void initState() {
     super.initState();
     _controller = AnimationController.unbounded(vsync: this);
-    _controller.addListener(() {
-      setState(() {
-        _dragOffset = _controller.value;
-      });
-    });
+    // addListener + setState YO'Q.
+    // AnimatedBuilder controllerni o'zi tinglaydi va faqat
+    // kartochkaning transform qismini qayta quradi.
   }
 
   @override
@@ -36,38 +35,37 @@ class _Ex17SpringState extends State<Ex17Spring>
   }
 
   void _onPanStart(DragStartDetails details) {
-    // Tortishni boshlaganda animatsiyani to'xtat
+    // Uchayotgan prujinani to'xtatib, barmoqqa nazorat berish
     _controller.stop();
-    _startOffset = _dragOffset;
   }
 
   void _onPanUpdate(DragUpdateDetails details, double maxWidth) {
-    setState(() {
-      // delta.dx = har frame'dagi piksel siljishi
-      // maxWidth/2 ga bo'lib nisbiy qiymatga aylantiramiz
-      _dragOffset += details.delta.dx / (maxWidth / 2);
-    });
+    // delta.dx = har frame'dagi piksel siljishi
+    // maxWidth/2 ga bo'lib nisbiy qiymatga aylantiramiz
+    // clamp — kartochka chegaradan uchib ketmasligi uchun
+    _controller.value = (_controller.value + details.delta.dx / (maxWidth / 2))
+        .clamp(-1.0, 1.0);
+
+    log("TTTTTTT ${details.delta.dx} ~~~ ${_controller.value}");
   }
 
   void _onPanEnd(DragEndDetails details, double maxWidth) {
     // Tezlikni pikseldan nisbiy qiymatga aylantirish
-    final velocity = details.velocity.pixelsPerSecond.dx / maxWidth * 2;
+    final velocity = details.velocity.pixelsPerSecond.dx / (maxWidth / 2);
 
-    // Spring simulatsiya: hozirgi joydan 0 ga (markazga) qaytish
     final spring = SpringDescription(
       mass: 1,
       stiffness: _stiffness,
       damping: _damping,
     );
 
-    final simulation = SpringSimulation(
+    // Spring simulatsiya: hozirgi joydan 0 ga (markazga) qaytish
+    _controller.animateWith(SpringSimulation(
       spring,
-      _dragOffset, // boshlanish: hozirgi joy
-      0,           // maqsad: markaz
-      velocity,    // boshlang'ich tezlik: barmoq tezligi
-    );
-
-    _controller.animateWith(simulation);
+      _controller.value, // boshlanish: hozirgi joy
+      0, // maqsad: markaz
+      velocity, // boshlang'ich tezlik: barmoq tezligi
+    ));
   }
 
   @override
@@ -77,12 +75,6 @@ class _Ex17SpringState extends State<Ex17Spring>
       body: LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth = constraints.maxWidth;
-          // _dragOffset: -1..1 → pikselga aylantirish
-          final translateX = _dragOffset * (maxWidth / 2 - 40);
-          // Markazdan uzoqlashganda biroz kichiklashadi
-          final scale = 1.0 - (_dragOffset.abs() * 0.2).clamp(0.0, 0.3);
-          // Markazdan uzoqlashganda biroz aylanadi
-          final rotation = _dragOffset * 0.1;
 
           return Column(
             children: [
@@ -95,22 +87,38 @@ class _Ex17SpringState extends State<Ex17Spring>
                 setState(() => _damping = v);
               }),
               const Spacer(),
+
               // Kartochka
               GestureDetector(
                 onPanStart: _onPanStart,
                 onPanUpdate: (d) => _onPanUpdate(d, maxWidth),
                 onPanEnd: (d) => _onPanEnd(d, maxWidth),
-                child: Transform.translate(
-                  offset: Offset(translateX, 0),
-                  child: Transform.rotate(
-                    angle: rotation,
-                    child: Transform.scale(
-                      scale: scale,
-                      child: _buildCard(),
-                    ),
-                  ),
+                child: AnimatedBuilder(
+                  animation: _controller,
+                  // child BIR MARTA quriladi va har frameda qayta ishlatiladi
+                  child: _buildCard(),
+                  builder: (context, child) {
+                    final t = _controller.value;
+
+                    // Bitta qiymatdan uchta effekt
+                    final translateX = t * (maxWidth / 2 - 40);
+                    final rotation = t * 0.1;
+                    final scale = 1.0 - (t.abs() * 0.5).clamp(0.0, 0.3);
+
+                    return Transform.translate(
+                      offset: Offset(translateX, 0),
+                      child: Transform.rotate(
+                        angle: rotation,
+                        child: Transform.scale(
+                          scale: scale,
+                          child: child, // qayta ishlatilmoqda
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
+
               const Spacer(),
               const Padding(
                 padding: EdgeInsets.all(16),

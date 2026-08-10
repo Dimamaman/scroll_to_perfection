@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class Ex9TweenSequence extends StatefulWidget {
@@ -28,8 +30,8 @@ class _Ex9TweenSequenceState extends State<Ex9TweenSequence>
         weight: 30,
       ),
       TweenSequenceItem(
-        tween: Tween(begin: 1.4, end: 0.3)
-            .chain(CurveTween(curve: Curves.easeIn)),
+        tween:
+            Tween(begin: 1.4, end: 0.3).chain(CurveTween(curve: Curves.easeIn)),
         weight: 30,
       ),
       TweenSequenceItem(
@@ -66,6 +68,10 @@ class _Ex9TweenSequenceState extends State<Ex9TweenSequence>
         weight: 34,
       ),
     ]).animate(_controller);
+
+    _controller.addListener(() {
+      log("JJJJJJ ${_controller.value} ~~ ${_colorAnimation.value?.r}");
+    });
   }
 
   @override

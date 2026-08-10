@@ -5,7 +5,12 @@ import 'package:scroll_to_perfection/cuberto.dart';
 import 'package:scroll_to_perfection/egipt/egypt.dart';
 import 'package:scroll_to_perfection/emoji_burst_animation.dart';
 import 'package:scroll_to_perfection/examples.dart';
+import 'package:scroll_to_perfection/exercises/ex15_wave.dart';
+import 'package:scroll_to_perfection/exercises/ex17_spring.dart';
+import 'package:scroll_to_perfection/exercises/ex18_draggable.dart';
+import 'package:scroll_to_perfection/exercises/ex19_particles.dart';
 import 'package:scroll_to_perfection/exercises/ex1_fade.dart';
+import 'package:scroll_to_perfection/exercises/ex20_final.dart';
 import 'package:scroll_to_perfection/exercises/ex2_scale.dart';
 import 'package:scroll_to_perfection/exercises/ex3_slide.dart';
 import 'package:scroll_to_perfection/exercises/ex4_rotation.dart';
@@ -14,20 +19,15 @@ import 'package:scroll_to_perfection/exercises/ex6_opacity_align.dart';
 import 'package:scroll_to_perfection/exercises/ex7_animated_switcher.dart';
 import 'package:scroll_to_perfection/exercises/ex8_staggered.dart';
 import 'package:scroll_to_perfection/exercises/ex9_tween_sequence.dart';
-import 'package:scroll_to_perfection/exercises/ex15_wave.dart';
-import 'package:scroll_to_perfection/exercises/ex17_spring.dart';
-import 'package:scroll_to_perfection/exercises/ex18_draggable.dart';
-import 'package:scroll_to_perfection/exercises/ex19_particles.dart';
-import 'package:scroll_to_perfection/exercises/ex20_final.dart';
-import 'package:scroll_to_perfection/widgets/friend_sheet.dart';
-import 'package:scroll_to_perfection/widgets/collapsing_card_stack.dart';
-import 'package:scroll_to_perfection/widgets/swipe_button.dart';
-import 'package:scroll_to_perfection/widgets/pressable_button.dart';
-import 'package:scroll_to_perfection/widgets/slide_to_power_off.dart';
 import 'package:scroll_to_perfection/scroll_reveal_example.dart';
 import 'package:scroll_to_perfection/timer_animation.dart';
 import 'package:scroll_to_perfection/vgv.dart';
 import 'package:scroll_to_perfection/whatsapp_parallax.dart';
+import 'package:scroll_to_perfection/widgets/collapsing_card_stack.dart';
+import 'package:scroll_to_perfection/widgets/friend_sheet.dart';
+import 'package:scroll_to_perfection/widgets/pressable_button.dart';
+import 'package:scroll_to_perfection/widgets/slide_to_power_off.dart';
+import 'package:scroll_to_perfection/widgets/swipe_button.dart';
 import 'package:scroll_to_perfection/zoom_in.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -70,6 +70,7 @@ class MyApp extends StatelessWidget {
         '/swipe_button': (_) => SwipeButtonDemo(),
         '/pressable_button': (_) => PressableButtonDemo(),
         '/slide_to_power_off': (_) => SlideToPowerOffDemo(),
+        '/gestureDetector': (_) => GestureDetectorExample()
       },
     );
   }
@@ -224,6 +225,10 @@ class HomePage extends StatelessWidget {
             name: 'Slide to Power Off (iOS klassik)',
             path: '/slide_to_power_off',
           ),
+          DemoOptionButton(
+            name: "Gesture Detector Example",
+            path: '/gestureDetector',
+          )
         ],
       ),
     );

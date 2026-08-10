@@ -10,10 +10,26 @@ class _Ex6OpacityAlignState extends State<Ex6OpacityAlign> {
   int _step = 0;
 
   static const _steps = [
-    _StepData(align: Alignment.topLeft, opacity: 1.0, color: Colors.indigo, label: 'Chap yuqori'),
-    _StepData(align: Alignment.topRight, opacity: 0.6, color: Colors.teal, label: 'O\'ng yuqori'),
-    _StepData(align: Alignment.bottomRight, opacity: 0.3, color: Colors.deepOrange, label: 'O\'ng pastda'),
-    _StepData(align: Alignment.bottomLeft, opacity: 1.0, color: Colors.purple, label: 'Chap pastda'),
+    _StepData(
+        align: Alignment.topLeft,
+        opacity: 1.0,
+        color: Colors.indigo,
+        label: 'Chap yuqori'),
+    _StepData(
+        align: Alignment.topRight,
+        opacity: 0.6,
+        color: Colors.teal,
+        label: 'O\'ng yuqori'),
+    _StepData(
+        align: Alignment.bottomRight,
+        opacity: 0.3,
+        color: Colors.deepOrange,
+        label: 'O\'ng pastda'),
+    _StepData(
+        align: Alignment.bottomLeft,
+        opacity: 1.0,
+        color: Colors.purple,
+        label: 'Chap pastda'),
   ];
 
   void _next() {
@@ -33,27 +49,30 @@ class _Ex6OpacityAlignState extends State<Ex6OpacityAlign> {
         child: Column(
           children: [
             Expanded(
-              child: AnimatedAlign(
-                duration: const Duration(milliseconds: 600),
-                curve: Curves.easeInOut,
-                alignment: current.align,
-                child: AnimatedOpacity(
+              child: Container(
+                color: Colors.blue,
+                child: AnimatedAlign(
                   duration: const Duration(milliseconds: 600),
-                  opacity: current.opacity,
-                  child: AnimatedContainer(
+                  curve: Curves.easeInOut,
+                  alignment: current.align,
+                  child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 600),
-                    curve: Curves.easeInOut,
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      color: current.color,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    alignment: Alignment.center,
-                    child: const Icon(
-                      Icons.flutter_dash,
-                      size: 50,
-                      color: Colors.white,
+                    opacity: current.opacity,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 600),
+                      curve: Curves.easeInOut,
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        color: current.color,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      alignment: Alignment.center,
+                      child: const Icon(
+                        Icons.flutter_dash,
+                        size: 50,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
