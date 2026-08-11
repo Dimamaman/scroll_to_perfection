@@ -27,6 +27,7 @@ import 'package:scroll_to_perfection/widgets/collapsing_card_stack.dart';
 import 'package:scroll_to_perfection/widgets/friend_sheet.dart';
 import 'package:scroll_to_perfection/widgets/pressable_button.dart';
 import 'package:scroll_to_perfection/widgets/slide_to_power_off.dart';
+import 'package:scroll_to_perfection/widgets/card_swiper.dart';
 import 'package:scroll_to_perfection/widgets/swipe_button.dart';
 import 'package:scroll_to_perfection/zoom_in.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -70,6 +71,7 @@ class MyApp extends StatelessWidget {
         '/swipe_button': (_) => SwipeButtonDemo(),
         '/pressable_button': (_) => PressableButtonDemo(),
         '/slide_to_power_off': (_) => SlideToPowerOffDemo(),
+        '/card_swiper': (_) => const CardSwiperScreen(),
         '/gestureDetector': (_) => GestureDetectorExample()
       },
     );
@@ -224,6 +226,10 @@ class HomePage extends StatelessWidget {
           DemoOptionButton(
             name: 'Slide to Power Off (iOS klassik)',
             path: '/slide_to_power_off',
+          ),
+          DemoOptionButton(
+            name: 'Card Swiper (Tinder uslubida)',
+            path: '/card_swiper',
           ),
           DemoOptionButton(
             name: "Gesture Detector Example",
