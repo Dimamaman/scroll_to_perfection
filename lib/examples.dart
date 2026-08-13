@@ -246,3 +246,114 @@ class _GestureDetectorExampleState extends State<GestureDetectorExample>
     );
   }
 }
+
+class FabExample extends StatefulWidget {
+  const FabExample({Key? key}) : super(key: key);
+
+  @override
+  State<FabExample> createState() => _FabExampleState();
+}
+
+class _FabExampleState extends State<FabExample>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController animationController;
+  bool get _isClosed => animationController.isDismissed;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(
+        milliseconds: 300,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+  void toggle() {
+    if (_isClosed) {
+      animationController.forward();
+    } else {
+      animationController.reverse();
+    }
+  }
+
+  static const _icons = [
+    Icons.sports_martial_arts,
+    Icons.museum,
+    Icons.attach_file_sharp,
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: AnimatedBuilder(
+        animation: animationController,
+        builder: (BuildContext context, Widget? child) {
+          return Stack(
+            children: [
+              for (int i = 0; i < _icons.length; i++) _buildMiniFabIcon(i),
+              Positioned(
+                right: 16,
+                bottom: 36,
+                child: GestureDetector(
+                  onTap: toggle,
+                  child: Container(
+                    width: 65,
+                    height: 65,
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Transform.rotate(
+                      angle: animationController.value * (pi / 4),
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                        size: 35,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildMiniFabIcon(int i) {
+    final t = animationController.value;
+    final start = i * 0.2;
+    final end = start + 0.6;
+    final localT = Interval(start, end, curve: Curves.easeOutBack).transform(t);
+    final closedBottom = 36;
+    final openBottom = 36 + 70 * (i + 1);
+    print(
+        "RRRRRRR ${lerpDouble(closedBottom, openBottom, localT)!} ~~~ $localT");
+    return Positioned(
+      right: 16,
+      bottom: lerpDouble(closedBottom, openBottom, localT)!,
+      child: Container(
+        width: 65,
+        height: 65,
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          _icons[i],
+          color: Colors.white,
+          size: 35,
+        ),
+      ),
+    );
+  }
+}

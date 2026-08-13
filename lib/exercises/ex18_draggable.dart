@@ -87,25 +87,6 @@ class _Ex18DraggableState extends State<Ex18Draggable>
       appBar: AppBar(title: const Text('Mashq 18: Drag + Snap')),
       body: Stack(
         children: [
-          // Markaz nuqtasi (qaytish joyi)
-          Center(
-            child: Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Colors.grey.shade300,
-                  width: 2,
-                ),
-              ),
-              child: Icon(
-                Icons.center_focus_weak,
-                color: Colors.grey.shade300,
-                size: 30,
-              ),
-            ),
-          ),
           // Tortish chizig'i (markazdan kartochkagacha)
           if (_dx != 0 || _dy != 0)
             CustomPaint(

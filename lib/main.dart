@@ -8,6 +8,7 @@ import 'package:scroll_to_perfection/examples.dart';
 import 'package:scroll_to_perfection/exercises/ex15_wave.dart';
 import 'package:scroll_to_perfection/exercises/ex17_spring.dart';
 import 'package:scroll_to_perfection/exercises/ex18_draggable.dart';
+import 'package:scroll_to_perfection/exercises/ex18b_curves.dart';
 import 'package:scroll_to_perfection/exercises/ex19_particles.dart';
 import 'package:scroll_to_perfection/exercises/ex1_fade.dart';
 import 'package:scroll_to_perfection/exercises/ex20_final.dart';
@@ -23,11 +24,11 @@ import 'package:scroll_to_perfection/scroll_reveal_example.dart';
 import 'package:scroll_to_perfection/timer_animation.dart';
 import 'package:scroll_to_perfection/vgv.dart';
 import 'package:scroll_to_perfection/whatsapp_parallax.dart';
+import 'package:scroll_to_perfection/widgets/card_swiper.dart';
 import 'package:scroll_to_perfection/widgets/collapsing_card_stack.dart';
 import 'package:scroll_to_perfection/widgets/friend_sheet.dart';
 import 'package:scroll_to_perfection/widgets/pressable_button.dart';
 import 'package:scroll_to_perfection/widgets/slide_to_power_off.dart';
-import 'package:scroll_to_perfection/widgets/card_swiper.dart';
 import 'package:scroll_to_perfection/widgets/swipe_button.dart';
 import 'package:scroll_to_perfection/zoom_in.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
         '/ex15_wave': (_) => Ex15Wave(),
         '/ex17_spring': (_) => Ex17Spring(),
         '/ex18_draggable': (_) => Ex18Draggable(),
+        '/ex18b_curves': (_) => Ex18bCurves(),
         '/ex19_particles': (_) => Ex19Particles(),
         '/ex20_final': (_) => Ex20Final(),
         '/friend_sheet': (_) => FriendSheetDemo(),
@@ -72,7 +74,8 @@ class MyApp extends StatelessWidget {
         '/pressable_button': (_) => PressableButtonDemo(),
         '/slide_to_power_off': (_) => SlideToPowerOffDemo(),
         '/card_swiper': (_) => const CardSwiperScreen(),
-        '/gestureDetector': (_) => GestureDetectorExample()
+        '/gestureDetector': (_) => GestureDetectorExample(),
+        '/fab': (_) => FabExample()
       },
     );
   }
@@ -192,6 +195,10 @@ class HomePage extends StatelessWidget {
             path: '/ex18_draggable',
           ),
           DemoOptionButton(
+            name: 'Mashq 18b: Curves (spring\'siz)',
+            path: '/ex18b_curves',
+          ),
+          DemoOptionButton(
             name: 'Mashq 19: Particles',
             path: '/ex19_particles',
           ),
@@ -234,6 +241,10 @@ class HomePage extends StatelessWidget {
           DemoOptionButton(
             name: "Gesture Detector Example",
             path: '/gestureDetector',
+          ),
+          DemoOptionButton(
+            name: "Fab Example",
+            path: '/fab',
           )
         ],
       ),
