@@ -331,20 +331,29 @@ class _FabExampleState extends State<FabExample>
 
   Widget _buildMiniFabIcon(int i) {
     final t = animationController.value;
-    final start = i * 0.2;
+    final isReversing = animationController.status == AnimationStatus.reverse;
+
+    // Yopilayotganda indeksni teskarisiga o'giramiz
+    final index = isReversing ? (_icons.length - 1 - i) : i;
+
+    final start = index * 0.2;
     final end = start + 0.6;
-    final localT = Interval(start, end, curve: Curves.easeOutBack).transform(t);
-    final closedBottom = 36;
-    final openBottom = 36 + 70 * (i + 1);
-    print(
-        "RRRRRRR ${lerpDouble(closedBottom, openBottom, localT)!} ~~~ $localT");
+    final localT = Interval(
+      start,
+      end,
+      curve: isReversing ? Curves.easeInCubic : Curves.easeOutCubic,
+    ).transform(t);
+
+    final closedBottom = 36.0;
+    final openBottom = 36.0 + 70.0 * (i + 1);
+
     return Positioned(
       right: 16,
       bottom: lerpDouble(closedBottom, openBottom, localT)!,
       child: Container(
         width: 65,
         height: 65,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.blue,
           shape: BoxShape.circle,
         ),

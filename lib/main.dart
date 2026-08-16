@@ -20,6 +20,13 @@ import 'package:scroll_to_perfection/exercises/ex6_opacity_align.dart';
 import 'package:scroll_to_perfection/exercises/ex7_animated_switcher.dart';
 import 'package:scroll_to_perfection/exercises/ex8_staggered.dart';
 import 'package:scroll_to_perfection/exercises/ex9_tween_sequence.dart';
+import 'package:scroll_to_perfection/exercises/ex10_hero_morph.dart';
+import 'package:scroll_to_perfection/exercises/ex11_page_transition.dart';
+import 'package:scroll_to_perfection/exercises/ex12_repeat_shimmer.dart';
+import 'package:scroll_to_perfection/exercises/ex13_ticket_tear.dart';
+import 'package:scroll_to_perfection/exercises/ex14_unlock_pattern.dart';
+import 'package:scroll_to_perfection/exercises/ex16_draggable_bottom_dock.dart';
+import 'package:scroll_to_perfection/exercises/ex21_animated_compass_target.dart';
 import 'package:scroll_to_perfection/scroll_reveal_example.dart';
 import 'package:scroll_to_perfection/timer_animation.dart';
 import 'package:scroll_to_perfection/vgv.dart';
@@ -62,6 +69,10 @@ class MyApp extends StatelessWidget {
         '/ex7_switcher': (_) => Ex7AnimatedSwitcher(),
         '/ex8_staggered': (_) => Ex8Staggered(),
         '/ex9_tween_sequence': (_) => Ex9TweenSequence(),
+        '/ex10_hero_morph': (_) => const Ex10HeroMorph(),
+        '/ex11_page_transition': (_) => const Ex11PageTransition(),
+        '/ex12_repeat_shimmer': (_) => const Ex12RepeatShimmer(),
+        '/ex13_ticket_tear': (_) => const Ex13TicketTear(),
         '/ex15_wave': (_) => Ex15Wave(),
         '/ex17_spring': (_) => Ex17Spring(),
         '/ex18_draggable': (_) => Ex18Draggable(),
@@ -75,7 +86,10 @@ class MyApp extends StatelessWidget {
         '/slide_to_power_off': (_) => SlideToPowerOffDemo(),
         '/card_swiper': (_) => const CardSwiperScreen(),
         '/gestureDetector': (_) => GestureDetectorExample(),
-        '/fab': (_) => FabExample()
+        '/fab': (_) => FabExample(),
+        '/unlock_pattern': (_) => const Ex14UnlockPattern(),
+        '/draggable_bottom_dock': (_) => const Ex16DraggableBottomDock(),
+        '/animated_compass_target': (_) => const Ex21AnimatedCompassTarget()
       },
     );
   }
@@ -183,6 +197,22 @@ class HomePage extends StatelessWidget {
             path: '/ex9_tween_sequence',
           ),
           DemoOptionButton(
+            name: 'Mashq 10: Hero Morph',
+            path: '/ex10_hero_morph',
+          ),
+          DemoOptionButton(
+            name: 'Mashq 11: Page Transition',
+            path: '/ex11_page_transition',
+          ),
+          DemoOptionButton(
+            name: 'Mashq 12: Repeat + Shimmer',
+            path: '/ex12_repeat_shimmer',
+          ),
+          DemoOptionButton(
+            name: 'Mashq 13: Ticket Tear',
+            path: '/ex13_ticket_tear',
+          ),
+          DemoOptionButton(
             name: 'Mashq 15: Wave',
             path: '/ex15_wave',
           ),
@@ -245,6 +275,18 @@ class HomePage extends StatelessWidget {
           DemoOptionButton(
             name: "Fab Example",
             path: '/fab',
+          ),
+          DemoOptionButton(
+            name: 'Unlock Pattern Animation',
+            path: '/unlock_pattern',
+          ),
+          DemoOptionButton(
+            name: 'Draggable Bottom Dock',
+            path: '/draggable_bottom_dock',
+          ),
+          DemoOptionButton(
+            name: 'Animated Compass Target',
+            path: '/animated_compass_target',
           )
         ],
       ),
