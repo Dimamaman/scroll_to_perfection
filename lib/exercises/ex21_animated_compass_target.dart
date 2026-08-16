@@ -90,21 +90,21 @@ class _Ex21AnimatedCompassTargetState extends State<Ex21AnimatedCompassTarget>
               style: TextStyle(fontSize: 17, height: 1.35),
             ),
             const Spacer(),
-            AnimatedBuilder(
-              animation:
-                  Listenable.merge([_pulseController, _needleController]),
-              builder: (context, child) {
-                return CustomPaint(
-                  size: const Size(300, 300),
-                  painter: _CompassPainter(
-                    needleAngle: shownAngle,
-                    targetAngle: _targetAngle,
-                    pulse: _pulseController.value,
-                    isLocked: _isLocked,
-                  ),
-                );
-              },
-            ),
+            // AnimatedBuilder(
+            //   animation:
+            //       Listenable.merge([_pulseController, _needleController]),
+            //   builder: (context, child) {
+            //     return CustomPaint(
+            //       size: const Size(300, 300),
+            //       painter: _CompassPainter(
+            //         needleAngle: shownAngle,
+            //         targetAngle: _targetAngle,
+            //         pulse: _pulseController.value,
+            //         isLocked: _isLocked,
+            //       ),
+            //     );
+            //   },
+            // ),
             const SizedBox(height: 18),
             AnimatedDefaultTextStyle(
               duration: const Duration(milliseconds: 200),
